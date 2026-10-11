@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090b12">
+  <title>Create Account | Nexora</title>
+
+  <style>
+    :root {
+      --bg: #090b12;
+      --panel: #111522;
+      --border: #282d40;
+      --text: #f5f5fc;
+      --muted: #969db2;
+      --accent: #8978ff;
+      --accent-hover: #a094ff;
+      --danger: #ff8585;
+      --success: #55d6a7;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 15% 15%, rgba(109, 88, 240, .16), transparent 40%),
+        radial-gradient(ellipse at 90% 90%, rgba(67, 98, 215, .11), transparent 40%),
+        var(--bg);
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 440px;
+      padding: 36px;
+      background: rgba(17, 21, 34, .94);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: 0 25px 80px rgba(0, 0, 0, .35);
+    }
+
+    .logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 28px;
+      font-size: 29px;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+
+    .logo-icon {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 13px;
+      background: linear-gradient(135deg, #a194ff, #6753df);
+      box-shadow: 0 8px 30px rgba(115, 94, 245, .25);
+      font-size: 22px;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    h1 {
+      margin-bottom: 10px;
+      text-align: center;
+      font-size: 27px;
+      letter-spacing: -.6px;
+    }
+
+    .subtitle {
+      margin-bottom: 28px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .field {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #dce2f2;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    input {
+      width: 100%;
+      height: 49px;
+      padding: 0 14px;
+      outline: none;
+      border: 1px solid #30364a;
+      border-radius: 10px;
+      background: #0b0e17;
+      color: #ffffff;
+      font-size: 13px;
+      transition: border-color .2s, box-shadow .2s;
+    }
+
+    input::placeholder {
+      color: #697187;
+    }
+
+    input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(137, 120, 255, .12);
+    }
+
+    .password-wrap {
+      position: relative;
+    }
+
+    .password-wrap input {
+      padding-right: 72px;
+    }
+
+    .toggle {
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      transform: translateY(-50%);
+      padding: 5px;
+      border: none;
+      background: transparent;
+      color: #a99cff;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .submit-btn {
+      width: 100%;
+      min-height: 49px;
+      margin-top: 6px;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(110deg, #9281ff, #715ce7);
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 750;
+      cursor: pointer;
+      transition: opacity .2s, transform .2s;
+    }
+
+    .submit-btn:hover {
+      opacity: .92;
+      transform: translateY(-1px);
+    }
+
+    .submit-btn:disabled {
+      opacity: .6;
+      cursor: wait;
+      transform: none;
+    }
+
+    .message {
+      display: none;
+      margin-top: 16px;
+      padding: 12px;
+      border-radius: 9px;
+      font-size: 12px;
+      line-height: 1.7;
+      overflow-wrap: anywhere;
+    }
+
+    .message.error {
+      display: block;
+      border: 1px solid rgba(255, 100, 100, .25);
+      background: rgba(255, 90, 90, .08);
+      color: #ffaaaa;
+    }
+
+    .message.success {
+      display: block;
+      border: 1px solid rgba(70, 210, 155, .25);
+      background: rgba(70, 210, 155, .08);
+      color: #83e5bd;
+    }
+
+    .footer {
+      margin-top: 24px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    a {
+      color: #b3a8ff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: white;
+    }
+
+    .footer a {
+      font-weight: 750;
+    }
+
+    .home-link {
+      display: block;
+      margin-top: 20px;
+      color: #8991a8;
+      text-align: center;
+      font-size: 12px;
+    }
+
+    .home-link:hover {
+      color: white;
+    }
+
+    .copyright {
+      margin-top: 22px;
+      color: #646b80;
+      text-align: center;
+      font-size: 10px;
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 16px;
+      }
+
+      .container {
+        padding: 27px 22px;
+        border-radius: 17px;
+      }
+
+      h1 {
+        font-size: 25px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="container">
+
+    <a href="index.html" class="logo" aria-label="Nexora home">
+      <div class="logo-icon">N</div>
+      <div>Nexora<span>.</span></div>
+    </a>
+
+    <h1>Create your account</h1>
+
+    <p class="subtitle">
+      Get started with Nexora and explore your AI workspace.
+    </p>
+
+    <div id="liveServerWarning" style="display:none; margin-bottom: 22px; padding: 14px; background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: 12px; color: #ffca7b; font-size: 12px; line-height: 1.6;">
+      <strong>⚠️ You opened this via VS Code Live Server</strong><br>
+      Live Server (port <span id="currentPort">5500</span>) cannot run the Node backend or database.<br>
+      <a id="switchPortLink" href="http://localhost:3000/signup.html" style="display:inline-block; margin-top:8px; padding:6px 14px; background:#f59e0b; color:#090b12; font-weight:700; border-radius:6px; text-decoration:none;">
+        👉 Switch to http://localhost:3000/signup.html
+      </a>
+    </div>
+
+    <form id="signupForm">
+
+      <div class="field">
+        <label for="name">Full name</label>
+
+        <input
+          id="name"
+          name="name"
+          type="text"
+          placeholder="Enter your full name"
+          autocomplete="name"
+          minlength="2"
+          maxlength="80"
+          required
+        >
+      </div>
+
+      <div class="field">
+        <label for="email">Email address</label>
+
+        <input
+          id="email"
+          name="email"
+          type="email"
+          placeholder="you@example.com"
+          autocomplete="email"
+          maxlength="254"
+          required
+        >
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+
+        <div class="password-wrap">
+          <input
+            id="password"
+            name="password"
+            type="password"
+            placeholder="At least 8 characters"
+            autocomplete="new-password"
+            minlength="8"
+            maxlength="128"
+            required
+          >
+
+          <button
+            class="toggle"
+            type="button"
+            data-target="password"
+            aria-label="Show password"
+          >Show</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="confirmPassword">Confirm password</label>
+
+        <div class="password-wrap">
+          <input
+            id="confirmPassword"
+            name="confirmPassword"
+            type="password"
+            placeholder="Enter your password again"
+            autocomplete="new-password"
+            minlength="8"
+            maxlength="128"
+            required
+          >
+
+          <button
+            class="toggle"
+            type="button"
+            data-target="confirmPassword"
+            aria-label="Show password"
+          >Show</button>
+        </div>
+      </div>
+
+      <button class="submit-btn" id="submitBtn" type="submit">
+        Create Account →
+      </button>
+
+      <div
+        id="message"
+        class="message"
+        role="status"
+        aria-live="polite"
+      ></div>
+
+    </form>
+
+    <div class="footer">
+      Already have an account?
+      <a href="login.html">Log in</a>
+    </div>
+
+    <a class="home-link" href="index.html">← Back to home</a>
+
+    <div class="copyright">
+      © 2026 Nexora. Built for better work.
+    </div>
+
+  </main>
+
+  <script>
+    "use strict";
+
+    const form = document.getElementById("signupForm");
+    const message = document.getElementById("message");
+    const submitBtn = document.getElementById("submitBtn");
+
+    let signupInProgress = false;
+
+    function showMessage(text, type) {
+      message.textContent = text;
+      message.className = "message " + type;
+    }
+
+    // Show or hide either password field.
+    document.querySelectorAll(".toggle").forEach(button => {
+      button.addEventListener("click", () => {
+        const input = document.getElementById(button.dataset.target);
+        const showPassword = input.type === "password";
+
+        input.type = showPassword ? "text" : "password";
+        button.textContent = showPassword ? "Hide" : "Show";
+
+        button.setAttribute(
+          "aria-label",
+          showPassword ? "Hide password" : "Show password"
+        );
+      });
+    });
+
+    form.addEventListener("submit", async event => {
+      event.preventDefault();
+
+      if (signupInProgress || !form.reportValidity()) {
+        return;
+      }
+
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      const confirmPassword =
+        document.getElementById("confirmPassword").value;
+
+      if (name.length < 2) {
+        showMessage("Please enter your full name.", "error");
+        return;
+      }
+
+      if (password.length < 8) {
+        showMessage(
+          "Your password must contain at least 8 characters.",
+          "error"
+        );
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        showMessage("The passwords do not match.", "error");
+        return;
+      }
+
+      if (window.location.protocol === "http:" && window.location.port && window.location.port !== "3000") {
+        showMessage(
+          "You are on Live Server (port " + window.location.port + "), which cannot connect to the database. Please click the orange button above to open http://localhost:3000/signup.html!",
+          "error"
+        );
+        return;
+      }
+
+      signupInProgress = true;
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Creating account...";
+      message.className = "message";
+      message.textContent = "";
+
+      try {
+        const response = await fetch("/api/auth/signup", {
+          method: "POST",
+          credentials: "same-origin",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            password
+          })
+        });
+
+        const data = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+          throw new Error(
+            data.error ||
+            data.message ||
+            "Unable to create your account. Please try again."
+          );
+        }
+
+        showMessage(
+          "Your account has been created successfully. Redirecting to login...",
+          "success"
+        );
+
+        submitBtn.textContent = "Account Created";
+
+        setTimeout(() => {
+          window.location.replace("/login.html");
+        }, 1200);
+
+      } catch (error) {
+        console.error("Nexora signup error:", error);
+
+        showMessage(
+          error.message ||
+          "Could not connect to Nexora. Make sure the backend is running.",
+          "error"
+        );
+
+        signupInProgress = false;
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Create Account →";
+      }
+    });
+
+    // Detect if running on Live Server
+    if (window.location.protocol === "http:" && window.location.port && window.location.port !== "3000") {
+      const warning = document.getElementById("liveServerWarning");
+      if (warning) {
+        warning.style.display = "block";
+        const portSpan = document.getElementById("currentPort");
+        if (portSpan) portSpan.textContent = window.location.port;
+        const link = document.getElementById("switchPortLink");
+        if (link) link.href = `http://localhost:3000${window.location.pathname}`;
+      }
+    }
+  </script>
+</body>
+</html>

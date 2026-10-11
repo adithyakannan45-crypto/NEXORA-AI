@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090b12">
+  <title>Log In | Nexora</title>
+
+  <style>
+    :root {
+      --bg: #090b12;
+      --panel: #111522;
+      --border: #282d40;
+      --text: #f5f5fc;
+      --muted: #969db2;
+      --accent: #8978ff;
+      --accent-hover: #a094ff;
+      --danger: #ff8585;
+      --success: #55d6a7;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      padding: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--text);
+      background:
+        radial-gradient(
+          ellipse at 15% 15%,
+          rgba(109, 88, 240, .16),
+          transparent 40%
+        ),
+        radial-gradient(
+          ellipse at 90% 90%,
+          rgba(67, 98, 215, .11),
+          transparent 40%
+        ),
+        var(--bg);
+      font-family:
+        Inter, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", Arial, sans-serif;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 440px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+
+    .brand-icon {
+      display: grid;
+      place-items: center;
+      width: 45px;
+      height: 45px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #a194ff, #6753df);
+      box-shadow: 0 8px 30px rgba(115, 94, 245, .25);
+      font-size: 23px;
+      font-weight: 800;
+    }
+
+    .brand-name {
+      font-size: 29px;
+      font-weight: 800;
+      letter-spacing: -1.2px;
+    }
+
+    .brand-name span {
+      color: var(--accent);
+    }
+
+    .card {
+      padding: 36px;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background: rgba(17, 21, 34, .94);
+      box-shadow: 0 25px 80px rgba(0, 0, 0, .28);
+    }
+
+    .eyebrow {
+      color: #a89cff;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.7px;
+      text-transform: uppercase;
+      margin-bottom: 13px;
+    }
+
+    h1 {
+      font-size: 30px;
+      letter-spacing: -1px;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
+      margin-bottom: 28px;
+    }
+
+    .field {
+      margin-bottom: 19px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 9px;
+      color: #dce0ee;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    input {
+      width: 100%;
+      height: 49px;
+      padding: 0 14px;
+      color: var(--text);
+      background: #0b0e17;
+      border: 1px solid #30364a;
+      border-radius: 10px;
+      outline: none;
+      font-size: 13px;
+      transition: border-color .2s, box-shadow .2s;
+    }
+
+    input::placeholder {
+      color: #697187;
+    }
+
+    input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(137, 120, 255, .12);
+    }
+
+    .password-input {
+      padding-right: 72px;
+    }
+
+    .toggle-password {
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      transform: translateY(-50%);
+      padding: 5px;
+      color: #aaa5ff;
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .primary-btn {
+      width: 100%;
+      min-height: 49px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 9px;
+      margin-top: 8px;
+      color: white;
+      background: linear-gradient(110deg, #9281ff, #715ce7);
+      border: 0;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 750;
+      transition: .2s;
+    }
+
+    .primary-btn:hover {
+      filter: brightness(1.12);
+      transform: translateY(-1px);
+    }
+
+    .primary-btn:disabled {
+      opacity: .65;
+      cursor: wait;
+      transform: none;
+    }
+
+    .message {
+      display: none;
+      margin-top: 17px;
+      padding: 12px 13px;
+      border-radius: 9px;
+      font-size: 12px;
+      line-height: 1.7;
+      overflow-wrap: anywhere;
+    }
+
+    .message.error {
+      display: block;
+      color: #ffaaaa;
+      background: rgba(255, 90, 90, .08);
+      border: 1px solid rgba(255, 100, 100, .2);
+    }
+
+    .message.success {
+      display: block;
+      color: #83e5bd;
+      background: rgba(70, 210, 155, .08);
+      border: 1px solid rgba(70, 210, 155, .2);
+    }
+
+    .divider {
+      height: 1px;
+      margin: 25px 0;
+      background: var(--border);
+    }
+
+    .bottom-text {
+      color: var(--muted);
+      text-align: center;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .bottom-text a {
+      color: #b3a8ff;
+      font-weight: 750;
+    }
+
+    .bottom-text a:hover {
+      color: white;
+    }
+
+    .back-home {
+      display: block;
+      width: fit-content;
+      margin: 23px auto 0;
+      color: #8991a8;
+      font-size: 12px;
+    }
+
+    .back-home:hover {
+      color: white;
+    }
+
+    .footer {
+      margin-top: 22px;
+      color: #646b80;
+      text-align: center;
+      font-size: 10px;
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 16px;
+      }
+
+      .card {
+        padding: 27px 22px;
+        border-radius: 17px;
+      }
+
+      h1 {
+        font-size: 27px;
+      }
+
+      .brand {
+        margin-bottom: 23px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+
+    <a href="index.html" class="brand" aria-label="Nexora home">
+      <div class="brand-icon">N</div>
+      <div class="brand-name">Nexora<span>.</span></div>
+    </a>
+
+    <section class="card">
+      <div class="eyebrow">WELCOME BACK</div>
+
+      <h1>Log in to Nexora</h1>
+
+      <p class="subtitle">
+        Continue where you left off. Your workspace is waiting for you.
+      </p>
+
+      <div id="liveServerWarning" style="display:none; margin-bottom: 22px; padding: 14px; background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: 12px; color: #ffca7b; font-size: 12px; line-height: 1.6;">
+        <strong>⚠️ You opened this via VS Code Live Server</strong><br>
+        Live Server (port <span id="currentPort">5500</span>) cannot run the Node backend or database.<br>
+        <a id="switchPortLink" href="http://localhost:3000/login.html" style="display:inline-block; margin-top:8px; padding:6px 14px; background:#f59e0b; color:#090b12; font-weight:700; border-radius:6px; text-decoration:none;">
+          👉 Switch to http://localhost:3000/login.html
+        </a>
+      </div>
+
+      <form id="loginForm">
+        <div class="field">
+          <label for="loginEmail">Email address</label>
+
+          <input
+            id="loginEmail"
+            name="email"
+            type="email"
+            placeholder="you@example.com"
+            autocomplete="username"
+            maxlength="254"
+            required
+          >
+        </div>
+
+        <div class="field">
+          <label for="loginPassword">Password</label>
+
+          <div class="input-wrap">
+            <input
+              class="password-input"
+              id="loginPassword"
+              name="password"
+              type="password"
+              placeholder="Enter your password"
+              autocomplete="current-password"
+              required
+            >
+
+            <button
+              class="toggle-password"
+              type="button"
+              data-target="loginPassword"
+              aria-label="Show password"
+            >Show</button>
+          </div>
+        </div>
+
+        <button class="primary-btn" id="loginButton" type="submit">
+          <span id="buttonText">Log In</span>
+          <span aria-hidden="true">→</span>
+        </button>
+
+        <div
+          class="message"
+          id="message"
+          role="status"
+          aria-live="polite"
+        ></div>
+      </form>
+
+      <div class="divider"></div>
+
+      <p class="bottom-text">
+        Don't have an account?
+        <a href="signup.html">Create an account</a>
+      </p>
+    </section>
+
+    <a href="index.html" class="back-home">← Back to home</a>
+
+    <div class="footer">
+      © 2026 Nexora. Built for better work.
+    </div>
+
+  </main>
+
+  <script>
+    "use strict";
+
+    const form = document.getElementById("loginForm");
+    const button = document.getElementById("loginButton");
+    const buttonText = document.getElementById("buttonText");
+    const message = document.getElementById("message");
+
+    let loginInProgress = false;
+
+    function showMessage(text, type) {
+      message.textContent = text;
+      message.className = "message " + type;
+    }
+
+    function setLoading(loading) {
+      button.disabled = loading;
+      buttonText.textContent = loading ? "Signing in..." : "Log In";
+    }
+
+    // Show or hide the password.
+    document.querySelectorAll(".toggle-password").forEach(toggle => {
+      toggle.addEventListener("click", () => {
+        const input = document.getElementById(toggle.dataset.target);
+        const showPassword = input.type === "password";
+
+        input.type = showPassword ? "text" : "password";
+        toggle.textContent = showPassword ? "Hide" : "Show";
+        toggle.setAttribute(
+          "aria-label",
+          showPassword ? "Hide password" : "Show password"
+        );
+      });
+    });
+
+    // Check whether the backend recognizes the current session.
+    async function verifySession() {
+      const response = await fetch("/api/auth/me", {
+        method: "GET",
+        credentials: "same-origin",
+        cache: "no-store",
+        headers: {
+          "Accept": "application/json"
+        }
+      });
+
+      if (!response.ok) {
+        return false;
+      }
+
+      const data = await response.json();
+
+      return Boolean(data.authenticated && data.user);
+    }
+
+    // Login form submission.
+    form.addEventListener("submit", async event => {
+      event.preventDefault();
+
+      if (loginInProgress || !form.reportValidity()) {
+        return;
+      }
+
+      loginInProgress = true;
+      setLoading(true);
+      message.className = "message";
+      message.textContent = "";
+
+      const email = document.getElementById("loginEmail").value.trim();
+      const password = document.getElementById("loginPassword").value;
+
+      if (window.location.protocol === "http:" && window.location.port && window.location.port !== "3000") {
+        showMessage(
+          "You are on Live Server (port " + window.location.port + "), which cannot connect to the database. Please click the orange button above to open http://localhost:3000/login.html!",
+          "error"
+        );
+        loginInProgress = false;
+        setLoading(false);
+        return;
+      }
+
+      try {
+        // Send credentials to the existing Nexora backend.
+        const response = await fetch("/api/auth/login", {
+          method: "POST",
+          credentials: "same-origin",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify({
+            email,
+            password
+          })
+        });
+
+        const data = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+          throw new Error(
+            data.error || "Login failed. Check your email and password."
+          );
+        }
+
+        // The backend should save the session before responding.
+        // Verify that the browser can use the authenticated session.
+        let authenticated = false;
+
+        for (let attempt = 0; attempt < 5; attempt++) {
+          try {
+            authenticated = await verifySession();
+          } catch (error) {
+            console.error("Session verification attempt failed:", error);
+          }
+
+          if (authenticated) {
+            break;
+          }
+
+          await new Promise(resolve => setTimeout(resolve, 300));
+        }
+
+        if (!authenticated) {
+          throw new Error(
+            "Your login was accepted, but your session could not be verified. " +
+            "Please check the backend session settings. Open Nexora at " +
+            "http://localhost:3000/login.html"
+          );
+        }
+
+        if (data.user) {
+          if (data.user.name) localStorage.setItem("nexoraName", data.user.name);
+          if (data.user.email) localStorage.setItem("nexoraEmail", data.user.email);
+        }
+
+        showMessage(
+          "Login successful. Opening Nexora Dashboard...",
+          "success"
+        );
+
+        buttonText.textContent = "Success!";
+
+        // Redirect to the dashboard workspace
+        window.location.replace("/dashboard.html");
+
+      } catch (error) {
+        console.error("Nexora login error:", error);
+
+        showMessage(
+          error.message || "Unable to log in. Please try again.",
+          "error"
+        );
+
+        loginInProgress = false;
+        setLoading(false);
+      }
+    });
+
+    // Check if running on Live Server or non-3000 port
+    if (window.location.protocol === "http:" && window.location.port && window.location.port !== "3000") {
+      const warning = document.getElementById("liveServerWarning");
+      if (warning) {
+        warning.style.display = "block";
+        const portSpan = document.getElementById("currentPort");
+        if (portSpan) portSpan.textContent = window.location.port;
+        const link = document.getElementById("switchPortLink");
+        if (link) link.href = `http://localhost:3000${window.location.pathname}`;
+      }
+    } else {
+      checkExistingSession();
+    }
+  </script>
+</body>
+</html>

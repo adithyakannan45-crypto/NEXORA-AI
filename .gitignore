@@ -1,0 +1,20 @@
+# Private credentials (NEVER upload to GitHub)
+.env
+.env.*
+
+# Dependency packages (Installed automatically by hosting platforms via "npm install")
+node_modules/
+
+# Local databases and session records (Created automatically when the server runs)
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+nexora.db
+nexora.db-shm
+nexora.db-wal
+nexora-sessions.sqlite
+
+# System and editor files
+.DS_Store
+Thumbs.db
